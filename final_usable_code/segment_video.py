@@ -92,6 +92,14 @@ def segment_video(vid_path, output_path, verbose=False):
     else:
         _print('.txt3 file not found for the input video, using default values for headers')
     
+    anchor_lists = []
+    for n_show, show in enumerate(shows):
+        
+        for i, host in enumerate(show.hosts):
+          anchor_lists.append([pred[0].replace(' ','-') for pred in host][:5])
+
+    Network = get_majority_network(Final_Anchor(anchor_lists))
+    
     
     #Cutting shows from the main video + making a .txt file for each
     for n_show, show in enumerate(shows):
@@ -150,20 +158,29 @@ def segment_video(vid_path, output_path, verbose=False):
         PID = 'PID|'
         CMT = 'CMT|'
         INF = 'INF|'
+        for i, host in enumerate(show.hosts):
+            INF += 'probable_host'+str(i+1)+':'+'_'.join([pred[0].replace(' ','-') for pred in host][:5])+'_'
+        INF = INF[:-1]           
+        
+        CONFIDENT_ANCHORS = 'Confident Anchors|'
         if not Final_Anchor(ANC):
             for i, host in enumerate(show.hosts):
-                INF += 'probable_host'+str(i+1)+':'+'_'.join([pred[0].replace(' ','-') for pred in host][:5])+'_'
-            INF = INF[:-1]
+                CONFIDENT_ANCHORS += ''.join([pred[0].replace(' ','-') for pred in host][:5])+'_'
+            CONFIDENT_ANCHORS = CONFIDENT_ANCHORS[:-1]
         else:
             for anchor in Final_Anchor(ANC):
-                INF += anchor.replace(' ','-')+'_'   
-        # print(Final_Anchor(INF))      
+                CONFIDENT_ANCHORS += anchor.replace(' ','-')+'_'
+
+        NETWORKS = 'Network|' 
+        for i in Network:
+          NETWORKS += str(i)+'_'
+
         DUR = 'DUR|'+cut_duration
         TMS = 'TMS|'+cut_starttime+'-'+sec2HMS(cut_endtime)
         VID = 'VID|{}x{}'.format(vid_width, vid_height)
         
         #initializing with headers
-        cut_txt_lines = [TOP, COL, UID, SRC, TTL, PID, CMT, DUR, VID, LAN, LBT, OVD, OID, TMS, INF] 
+        cut_txt_lines = [TOP, COL, UID, SRC, TTL, PID, CMT, DUR, VID, LAN, LBT, OVD, OID, TMS, INF, CONFIDENT_ANCHORS, NETWORKS] 
         
         sub_starttime = pulldate.replace('-','') + cut_starttime.replace(':','')
         sub_endtime = pulldate.replace('-','') + sec2HMS(cut_endtime).replace(':','')
