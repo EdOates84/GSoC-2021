@@ -55,7 +55,7 @@ def segment_video(vid_path, output_path, verbose=False):
     attributes = filename.split('_') #Getting attributes from the Rosenthal file-naming convention
     pulldate, barcode = attributes[0], attributes[3]
     pullyear = pulldate.split('-')[0]
-    # vid_txt3_path = os.path.splitext(vid_path)[0]+'.txt3'
+    vid_txt3_path = os.path.splitext(vid_path)[0]+'.txt3'
     txt3_subtitles = None #default value - stays *None* if .txt3 is not found/ .txt3 does not have subtitles
   
 
@@ -104,18 +104,19 @@ def segment_video(vid_path, output_path, verbose=False):
     #Cutting shows from the main video + making a .txt file for each
     for n_show, show in enumerate(shows):
 
-        ANC = 'ANC|'
+        anchors_list_per_show = []
         for i, host in enumerate(show.hosts):
-                ANC += 'probable_host'+str(i+1)+':'+'_'.join([pred[0].replace(' ','-') for pred in host][:5])+'_'
-        ANC = ANC[:-1]
+          anchors_list_per_show.append([pred[0].replace(' ','-') for pred in host][:5])
+
+        final_anchors_per_show = Final_Anchor(anchors_list_per_show)
         
         if os.path.exists(vid_txt3_path):
-            show_name = final_show(Final_Anchor(ANC),pullyear,vid_txt3_path)
+            show_name = final_show(final_anchors_per_show,pullyear,vid_txt3_path)
             print(show_name)
             for i in show_name:
                 show_name = i.replace(' ', '_')
         else:
-            show_name = final_show_1(Final_Anchor(ANC),pullyear)
+            show_name = final_show_1(final_anchors_per_show,pullyear)
             print(show_name)
             for i in show_name:
                 show_name = i.replace(' ', '_')
@@ -161,12 +162,12 @@ def segment_video(vid_path, output_path, verbose=False):
         INF = INF[:-1]           
         
         CONFIDENT_ANCHORS = 'Confident Anchors|'
-        if not Final_Anchor(ANC):
+        if not final_anchors_per_show:
             for i, host in enumerate(show.hosts):
                 CONFIDENT_ANCHORS += ''.join([pred[0].replace(' ','-') for pred in host][:5])+'_'
             CONFIDENT_ANCHORS = CONFIDENT_ANCHORS[:-1]
         else:
-            for anchor in Final_Anchor(ANC):
+            for anchor in final_anchors_per_show:
                 CONFIDENT_ANCHORS += anchor.replace(' ','-')+'_'
 
         NETWORKS = 'Network|' 

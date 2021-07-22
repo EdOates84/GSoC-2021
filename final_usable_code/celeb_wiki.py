@@ -132,23 +132,13 @@ def get_correct_anchor(top_5):
 
 ## get finals anchors from the multiple probable hosts
 
-def Final_Anchor(last_line):
+def Final_Anchor(list_of_anchors):
   filter_probable_list = []
 
-  ## Here all_lines[len(all_lines)-1] == put from last year code
-  
-  last_line_anchors = last_line.split('ANC|')[1].split('\n')[0].replace(' ','')
-  
-  # print(last_line)
-  avoid_num = ''.join([i for i in last_line_anchors if not i.isdigit()])
-  probable_host_list = avoid_num.split('probable_host:')
-  probable_host_list = list(filter(None, probable_host_list))
-
-  # print(probable_host_list)
-
-  for i in probable_host_list:
-    filter_probable_list.append(get_correct_anchor(i))
-    filter_probable_list = list(filter(None, filter_probable_list))
+  for single_list in list_of_anchors:
+    for j in single_list:
+      filter_probable_list.append(get_correct_anchor(j))
+      filter_probable_list = list(filter(None, filter_probable_list))
   return filter_probable_list
 
 
@@ -181,11 +171,9 @@ def get_channel(name):
 
 def get_majority_network(anchors_list):
   list_of_network = []
-  for anchorlist in anchors_list:
-    for anchor in anchorlist:
-      list_of_network.append(get_channel(anchor))
+  for anchor in anchors_list:
+    list_of_network.append(get_channel(anchor))
   list_of_network = list(filter(None,list_of_network))
-  # print(list_of_network)
 
   X ={} #dict contains networks and respected votes 
   for network in list_of_network:
