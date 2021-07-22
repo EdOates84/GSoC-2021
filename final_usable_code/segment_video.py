@@ -110,19 +110,17 @@ def segment_video(vid_path, output_path, verbose=False):
         ANC = ANC[:-1]
         
         if os.path.exists(vid_txt3_path):
-            channel = final_show(Final_Anchor(ANC),pullyear,vid_txt3_path)
-            print(channel)
-            for i in channel:
-                channel = i.replace(' ', '_')
+            show_name = final_show(Final_Anchor(ANC),pullyear,vid_txt3_path)
+            print(show_name)
+            for i in show_name:
+                show_name = i.replace(' ', '_')
         else:
-            channel = final_show_1(Final_Anchor(ANC),pullyear)
-            print(channel)
-            for i in channel:
-                channel = i.replace(' ', '_')
+            show_name = final_show_1(Final_Anchor(ANC),pullyear)
+            print(show_name)
+            for i in show_name:
+                show_name = i.replace(' ', '_')
 
         _print('Cutting out show no. {} from the video'.format(n_show+1))
-        # channel = 'unknown-channel' #until the work with IMDb is done
-        # channel = channel.replace(' ', '_')
         
         main_host = show.hosts[0][0]
         if main_host[1] > 0.4: #If majority predictions are of the same person
@@ -131,7 +129,7 @@ def segment_video(vid_path, output_path, verbose=False):
             host_name = 'unknown-anchor'
     #     host_name = show.hosts[0][0][0]
         host_name = host_name.replace(' ', '_')
-        cut_filename = '_'.join((pulldate, barcode, '-'.join((str(n_show+1), str(len(shows)))), channel, host_name))
+        cut_filename = '_'.join((pulldate, barcode, '-'.join((str(n_show+1), str(len(shows)))), show_name, host_name))
         cut_path = os.path.join(output_path, cut_filename)
         cut_starttime = (int(max(0, show.start_time - 60))) #using a buffer of 1 minute
                                 
