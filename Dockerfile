@@ -6,6 +6,7 @@ RUN apt-get update -qq -y && \
         libboost-all-dev \
         python3 \
         python3-pip \
+        
 RUN pip3 install -qq -y && \
     DEBIAN_FRONTEND=noninteractive pip3 install -y \
     	numpy \
