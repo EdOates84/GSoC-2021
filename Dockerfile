@@ -14,14 +14,3 @@ RUN apt-get update -qq -y && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /show_segmentation/
-
-RUN python3 -m pip install --upgrade poetry==1.1.7
-
-ADD pyproject.toml poetry.lock /show_segmentation/
-
-RUN echo "/show_segmentation" > \
-    /usr/local/lib/python3.8/dist-packages/show_segmentation.pth
-
-RUN ln -sf /usr/bin/python3 /usr/bin/python
-
-RUN R -e 'install.packages(c("dplyr", "tidyr", "readr", "purrr"))'
