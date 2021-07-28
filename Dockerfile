@@ -6,20 +6,14 @@ RUN apt-get update -qq -y && \
         python3-dev \
         python3-pip \
         libgtk-3-dev \
-        python3 \
+        python3
 
-RUN python3 -m pip install numpy
-
-RUN python3 -m pip install scikit-learn
-
-RUN python3 -m pip install pandas
-
-RUN python3 -m pip install dlib
-
-RUN python3 -m pip install opencv-python
-
-RUN python3 -m pip install face_recognition
-
-RUN python3 -m pip install matplotlib
-
-RUN python3 -m pip install wikipedia
+RUN python3 -m pip install -y \
+    numpy \ 
+    scikit-learn \
+    pandas \
+    dlib \
+    opencv-python \
+    face_recognition \
+    matplotlib \
+    wikipedia 
