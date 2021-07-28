@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 RUN apt-get update -qq -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    	build-essential \
+    	build-essential cmake\
         python3-dev \
         python3-pip \
         libgtk-3-dev \
