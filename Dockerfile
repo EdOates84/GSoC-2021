@@ -7,7 +7,6 @@ RUN apt-get update -qq -y && \
         python3 \
         python3-pip \
     pip3 install -qq -y && \
-    DEBIAN_FRONTEND=noninteractive pip3 install -y \
     	numpy \
         scikit-learn \
         pandas \
