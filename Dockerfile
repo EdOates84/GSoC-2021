@@ -1,5 +1,4 @@
 FROM ubuntu:20.04
-
 RUN apt-get update -qq -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     	build-essential \
@@ -7,8 +6,7 @@ RUN apt-get update -qq -y && \
         libboost-all-dev \
         python3 \
         python3-pip \
-
-RUN pip3 install -qq -y && \
+    pip3 install -qq -y && \
     DEBIAN_FRONTEND=noninteractive pip3 install -y \
     	numpy \
         scikit-learn \
@@ -18,5 +16,4 @@ RUN pip3 install -qq -y && \
         face_recognition \
         matplotlib \
         wikipedia \
-
 WORKDIR /show_segmentation/
