@@ -6,7 +6,8 @@ RUN apt-get update -qq -y && \
         libboost-all-dev \
         python3 \
         python3-pip \
-    pip3 install -qq -y && \
+    pip install -qq -y && \
+    DEBIAN_FRONTEND=noninteractive pip install -y \
     	numpy \
         scikit-learn \
         pandas \
