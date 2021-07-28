@@ -6,7 +6,7 @@ RUN apt-get update -qq -y && \
         libboost-all-dev \
         python3 \
         python3-pip \
-    pip install -qq -y && \
+RUN pip install -qq -y && \
     DEBIAN_FRONTEND=noninteractive pip install -y \
     	numpy \
         scikit-learn \
