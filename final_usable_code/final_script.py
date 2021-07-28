@@ -10,6 +10,7 @@ import subprocess
 
 dataset = '/mnt/rds/redhen/gallina/tv/'
 split   = '/mnt/rds/redhen/gallina/TvSplit/'
+slurm_path = '/mnt/rds/redhen/gallina/'
 
 for y in os.listdir(dataset):
     for y_m in os.listdir(join(dataset, y)):
@@ -20,5 +21,5 @@ for y in os.listdir(dataset):
 
                 if not os.path.exists(output_path): 
                     os.makedirs(output_path) # os.makedirs creates all missing directories in the path recursively
-
-                subprocess.run("sbatch"+"final_usable_code/final_script.slurm"+" "+vid_path+" "+output_path)
+                cmd = 'sbatch {slurm_path} {vid_path} {output_path}'.format(slurm_path=slurm_path, vid_path=vid_path, output_path=output_path)
+                subprocess.run([cmd])
