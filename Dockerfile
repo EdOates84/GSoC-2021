@@ -8,7 +8,7 @@ RUN apt-get update -qq -y && \
         libgtk-3-dev \
         python3
 
-RUN python3 -m pip install -y \
+RUN python3 -m pip install \
     numpy \ 
     scikit-learn \
     pandas \
