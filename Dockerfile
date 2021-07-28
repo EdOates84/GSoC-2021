@@ -3,14 +3,20 @@ FROM ubuntu:20.04
 RUN apt-get update -qq -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     	build-essential \
-        wget \
-        python3-dev \
+        libgtk-3-dev \
+        libboost-all-dev \
+        python3 \
         python3-pip \
-        git \
-        unrar \
-        r-base \
-        default-libmysqlclient-dev \
-        default-jre && \
-    rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install -qq -y && \
+    DEBIAN_FRONTEND=noninteractive pip3 install -y \
+    	numpy \
+        scikit-learn \
+        pandas \
+        dlib \
+        opencv-python \
+        face_recognition \
+        matplotlib \
+        wikipedia \
 
 WORKDIR /show_segmentation/
