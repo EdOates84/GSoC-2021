@@ -1,0 +1,19 @@
+FROM ubuntu:20.04
+
+RUN apt-get update -qq -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    	build-essential cmake\
+        python3-dev \
+        python3-pip \
+        libgtk-3-dev \
+        python3
+
+RUN python3 -m pip install \
+    numpy \ 
+    scikit-learn \
+    pandas \
+    dlib \
+    opencv-python \
+    face_recognition \
+    matplotlib \
+    wikipedia 
