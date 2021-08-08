@@ -5,6 +5,7 @@ RUN apt-get update -qq -y && \
     	build-essential cmake\
         python3-dev \
         python3-pip \
+        ffmpeg \
         libgtk-3-dev \
         python3
 
@@ -16,4 +17,6 @@ RUN python3 -m pip install \
     opencv-python \
     face_recognition \
     matplotlib \
+    ffmpeg-python \
+    ffmpeg \
     wikipedia 

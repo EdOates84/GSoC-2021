@@ -1,10 +1,7 @@
-#!/bin/bash
-#SBATCH -o test.o%j
+#!/usr/bin/bash
 #SBATCH --time=1-00:00:00
-#SBATCH -mem=8gb     
-#SBATCH -N 1                 
-#SBATCH -n 1                 
-module load singularity
-singularity exec /mnt/rds/redhen/gallina/Singularity/Show_Segmentation_2021/show_segmentation_2021.img python3 segment_tv.py $1 $2
+#SBATCH --mem=16gb
+#SBATCH -N 1
 
-# singularity pull show_segmentation_2021.sif docker://ghcr.io/EdOates84/Show_Segmentation_2021:latest
+module load singularity
+singularity exec --bind /mnt/rds/redhen/gallina /mnt/rds/redhen/gallina/Singularity/Show-Segmentation-2021/show-segementation-2021_latest.sif python3 /mnt/rds/redhen/gallina/Singularity/Show-Segmentation-2021/final_usable_code/segment_tv.py $1 $2 $3
