@@ -6,6 +6,7 @@ RUN apt-get update -qq -y && \
         python3-dev \
         python3-pip \
         ffmpeg \
+        uuid-runtime \
         libgtk-3-dev \
         python3
 
@@ -19,4 +20,6 @@ RUN python3 -m pip install \
     matplotlib \
     ffmpeg-python \
     ffmpeg \
+    uuid \
+    requests \
     wikipedia 
