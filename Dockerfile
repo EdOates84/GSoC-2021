@@ -20,6 +20,7 @@ RUN python3 -m pip install \
     matplotlib \
     ffmpeg-python \
     ffmpeg \
+    traceback2 \
     uuid \
     requests \
     wikipedia 
