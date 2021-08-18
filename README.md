@@ -86,7 +86,11 @@ python3 final_script.py
 ```
 Please raise an issue if you run into any errors.
 
-<!-- ## Future work
+## Future work
 * If possible, replace the current celeb detection method with Azure’s Computer Vision service.
+
 * Currently the most time consuming process in the program is that of going frame by frame and extracting faces. This can be speed up using multi-threading or any other means possible.
-* Explore the dataset that contains news shows with anchors. -->
+
+* Explore the dataset that contains news shows with anchors and include it in the pipeline.
+
+* Shows with single or a few episodes can just be dropped to improve precision at the expense of recall.
